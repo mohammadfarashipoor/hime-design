@@ -1,0 +1,621 @@
+/* =========================================================
+   HIME — استایل‌شیت اصلی
+   پالت رنگی: چوب تیره‌سوخته + رزین مشکی + طلایی برنزی
+   فونت: وزیرمتن (Vazirmatn)
+   المان امضا: «خط درز» (Seam) — خط موج‌دار طلایی که استعاره‌ی
+   خط رزینی میان برش‌های چوب است و در سراسر سایت تکرار می‌شود.
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap');
+
+:root{
+  /* --- رنگ‌ها --- */
+  --bg-primary:   #1a1512;   /* چوب سوخته تیره */
+  --bg-secondary: #211b16;   /* لایه دوم */
+  --bg-elevated:  #2b241d;   /* کارت‌ها */
+  --resin:        #0c0a09;   /* مشکی رزین */
+  --gold:         #c9a568;   /* طلایی برنزی - رنگ اصلی برند */
+  --gold-soft:    #a88a5c;
+  --gold-dim:     rgba(201,165,104,0.16);
+  --cream:        #ece4d6;   /* متن اصلی روشن */
+  --muted:        #a89b8a;   /* متن ثانویه */
+  --border:       rgba(201,165,104,0.16);
+
+  /* --- تایپوگرافی --- */
+  --font-main: 'Vazirmatn', 'Tahoma', sans-serif;
+
+  /* --- فاصله‌گذاری --- */
+  --section-pad: clamp(64px, 10vw, 140px);
+  --container-w: 1180px;
+}
+
+*, *::before, *::after{ box-sizing: border-box; margin:0; padding:0; }
+
+html{ scroll-behavior: smooth; }
+
+body{
+  background: var(--bg-primary);
+  color: var(--cream);
+  font-family: var(--font-main);
+  direction: rtl;
+  line-height: 1.85;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img{ max-width:100%; display:block; }
+
+a{ color:inherit; text-decoration:none; }
+
+ul{ list-style:none; }
+
+.container{
+  max-width: var(--container-w);
+  margin: 0 auto;
+  padding: 0 clamp(20px, 5vw, 48px);
+}
+
+/* پس‌زمینه بافت‌دار ظریف (تراشه‌های چوب) */
+body::before{
+  content:"";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: .5;
+  background:
+    radial-gradient(1200px 600px at 85% -10%, rgba(201,165,104,0.05), transparent 60%),
+    radial-gradient(900px 500px at 5% 110%, rgba(201,165,104,0.04), transparent 60%);
+}
+
+/* =========================================================
+   المان امضا: خط درز (Seam Divider)
+   ========================================================= */
+.seam{
+  width: 100%;
+  height: 22px;
+  display: block;
+  background-repeat: repeat-x;
+  background-size: 140px 22px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='22' viewBox='0 0 140 22'%3E%3Cpath d='M0 11 C 15 2, 25 20, 40 11 S 65 2, 80 11 S 105 20, 120 11 S 135 2, 140 11' fill='none' stroke='%23c9a568' stroke-width='1.4' stroke-opacity='0.55' stroke-linecap='round'/%3E%3C/svg%3E");
+  opacity:.8;
+}
+.seam.seam-sm{ height: 14px; background-size: 90px 14px; opacity:.6;}
+
+/* =========================================================
+   هدر / ناوبری
+   ========================================================= */
+.site-header{
+  position: sticky;
+  top:0;
+  z-index: 50;
+  background: rgba(26,21,18,0.86);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+.nav{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding: 18px clamp(20px, 5vw, 48px);
+  max-width: var(--container-w);
+  margin: 0 auto;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+.brand-mark{
+  width:44px; height:44px;
+  border-radius: 40% 60% 55% 45% / 55% 45% 60% 40%;
+  border:1.5px solid var(--gold);
+  display:flex; align-items:center; justify-content:center;
+  font-family: var(--font-main);
+  font-weight:700;
+  font-size:16px;
+  color: var(--gold);
+  letter-spacing: 0;
+  flex-shrink:0;
+  /* جایگاه لوگو: در صورت داشتن فایل لوگو، این div را با
+     <img src="images/logo.png" alt="لوگوی هیمه"> جایگزین کنید */
+}
+.brand-name{
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: .5px;
+  color: var(--cream);
+}
+.brand-sub{
+  display:block;
+  font-size:11px;
+  font-weight:400;
+  color: var(--muted);
+  letter-spacing: 1px;
+}
+.nav-links{
+  display:flex;
+  gap: clamp(16px,3vw,34px);
+  font-size:14.5px;
+  color: var(--muted);
+}
+.nav-links a{ position:relative; padding:6px 2px; transition:.25s color; }
+.nav-links a:hover, .nav-links a:focus-visible{ color: var(--gold); }
+.nav-links a::after{
+  content:"";
+  position:absolute; right:0; bottom:-2px;
+  width:0%; height:1px; background: var(--gold);
+  transition:.3s width;
+}
+.nav-links a:hover::after, .nav-links a:focus-visible::after{ width:100%; }
+
+.nav-toggle{ display:none; }
+
+/* =========================================================
+   دکمه‌ها
+   ========================================================= */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding: 13px 30px;
+  border-radius: 999px;
+  border:1px solid var(--gold);
+  color: var(--gold);
+  font-family: var(--font-main);
+  font-size: 14.5px;
+  font-weight: 600;
+  background: transparent;
+  cursor:pointer;
+  transition: .3s ease;
+}
+.btn:hover, .btn:focus-visible{
+  background: var(--gold);
+  color: var(--resin);
+  transform: translateY(-2px);
+}
+.btn-solid{
+  background: var(--gold);
+  color: var(--resin);
+}
+.btn-solid:hover, .btn-solid:focus-visible{
+  background: var(--gold-soft);
+  color: var(--resin);
+}
+.btn-ghost{
+  border-color: var(--border);
+  color: var(--cream);
+}
+.btn-ghost:hover, .btn-ghost:focus-visible{
+  border-color: var(--gold);
+  background: transparent;
+  color: var(--gold);
+  transform: translateY(-2px);
+}
+
+/* =========================================================
+   هیرو
+   ========================================================= */
+.hero{
+  position: relative;
+  z-index:1;
+  padding: clamp(56px,9vw,110px) 0 var(--section-pad);
+}
+.hero-grid{
+  display:grid;
+  grid-template-columns: 1.05fr .95fr;
+  gap: clamp(30px,5vw,70px);
+  align-items:center;
+}
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  font-size:13px;
+  letter-spacing: 2px;
+  color: var(--gold-soft);
+  margin-bottom: 22px;
+}
+.eyebrow::before{
+  content:"";
+  width: 26px; height:1px;
+  background: var(--gold);
+}
+.hero-title{
+  font-size: clamp(48px, 7vw, 86px);
+  font-weight: 800;
+  color: var(--cream);
+  line-height: 1.05;
+  margin-bottom: 8px;
+}
+.hero-title span{ color: var(--gold); }
+.hero-tagline{
+  font-size: clamp(16px, 1.6vw, 19px);
+  color: var(--muted);
+  margin: 18px 0 30px;
+  font-weight: 400;
+}
+.hero-actions{ display:flex; gap:16px; flex-wrap:wrap; }
+
+.hero-media{
+  position:relative;
+}
+.hero-frame{
+  position:relative;
+  aspect-ratio: 4/5;
+  border-radius: 6% 94% 92% 8% / 10% 8% 92% 90%;
+  overflow:hidden;
+  background: linear-gradient(155deg, var(--bg-elevated), var(--resin));
+  border: 1px solid var(--border);
+  box-shadow: 0 40px 90px -30px rgba(0,0,0,.7);
+}
+.hero-frame img, .hero-frame video{
+  width:100%; height:100%; object-fit:cover;
+}
+.hero-frame .placeholder-fallback{
+  position:absolute; inset:0;
+  display:none; flex-direction:column; align-items:center; justify-content:center;
+  gap:10px;
+  text-align:center;
+  padding: 20px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.hero-frame .placeholder-fallback strong{
+  color: var(--gold);
+  font-size: 15px;
+  font-weight:600;
+}
+.hero-frame::after{
+  content:"";
+  position:absolute; inset:0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1.5px var(--gold-dim);
+  pointer-events:none;
+}
+.hero-frame-tag{
+  position:absolute;
+  bottom: 22px; left: 22px;
+  background: rgba(12,10,9,0.72);
+  backdrop-filter: blur(6px);
+  border:1px solid var(--border);
+  padding: 9px 16px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  color: var(--gold);
+}
+
+/* =========================================================
+   بخش معرفی برند (About)
+   ========================================================= */
+.about{
+  position:relative; z-index:1;
+  padding: var(--section-pad) 0;
+  border-top: 1px solid var(--border);
+}
+.about-inner{
+  max-width: 900px;
+  margin: 0 auto;
+  text-align:center;
+}
+.section-label{
+  font-size:13px;
+  letter-spacing:2px;
+  color: var(--gold-soft);
+  display:block;
+  margin-bottom: 18px;
+}
+.about-title{
+  font-size: clamp(28px,3.4vw,40px);
+  font-weight:700;
+  color: var(--cream);
+  margin-bottom: 26px;
+}
+.about-text{
+  font-size: clamp(15.5px,1.4vw,17.5px);
+  color: var(--muted);
+  line-height: 2.15;
+  font-weight:300;
+}
+.about-text strong{ color: var(--cream); font-weight:600; }
+
+/* =========================================================
+   شبکه ویژگی‌ها (مشخصات فنی محصول)
+   ========================================================= */
+.specs{
+  padding: var(--section-pad) 0;
+  position:relative; z-index:1;
+}
+.specs-grid{
+  display:grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  overflow:hidden;
+}
+.spec-item{
+  background: var(--bg-secondary);
+  padding: 34px 26px;
+  text-align:center;
+}
+.spec-item .spec-icon{
+  font-size: 22px;
+  color: var(--gold);
+  margin-bottom:14px;
+}
+.spec-item h4{
+  font-size: 15.5px;
+  color: var(--cream);
+  font-weight:600;
+  margin-bottom:8px;
+}
+.spec-item p{
+  font-size: 13.5px;
+  color: var(--muted);
+  line-height:1.9;
+}
+
+/* =========================================================
+   دسته‌بندی نمونه‌کارها (کارت‌ها)
+   ========================================================= */
+.collections{
+  padding: var(--section-pad) 0 calc(var(--section-pad) + 20px);
+  position:relative; z-index:1;
+  border-top: 1px solid var(--border);
+}
+.section-head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap: 20px;
+  margin-bottom: 50px;
+  flex-wrap:wrap;
+}
+.section-head h2{
+  font-size: clamp(28px,3.6vw,42px);
+  font-weight:700;
+  color: var(--cream);
+}
+.section-head p{
+  color: var(--muted);
+  font-size:15px;
+  max-width: 360px;
+}
+
+.collection-grid{
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+}
+.collection-card{
+  position:relative;
+  display:block;
+  border-radius: 20px;
+  overflow:hidden;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  aspect-ratio: 3/4;
+  transition: .45s cubic-bezier(.2,.7,.3,1);
+}
+.collection-card:hover, .collection-card:focus-visible{
+  transform: translateY(-8px);
+  border-color: var(--gold-dim);
+  box-shadow: 0 30px 60px -25px rgba(0,0,0,.65);
+}
+.collection-card .cc-media{
+  position:absolute; inset:0;
+  background:
+    repeating-linear-gradient(135deg, rgba(201,165,104,0.05) 0 2px, transparent 2px 14px),
+    linear-gradient(200deg, var(--bg-elevated), var(--resin));
+}
+.collection-card .cc-media img{
+  width:100%; height:100%; object-fit:cover;
+  position:absolute; inset:0;
+}
+.collection-card .cc-overlay{
+  position:absolute; inset:0;
+  background: linear-gradient(0deg, rgba(12,10,9,.92) 0%, rgba(12,10,9,.15) 55%, transparent 100%);
+}
+.collection-card .cc-content{
+  position:absolute;
+  right:0; left:0; bottom:0;
+  padding: 26px 22px;
+}
+.cc-index{
+  font-size:12px;
+  color: var(--gold-soft);
+  letter-spacing:1px;
+  margin-bottom:8px;
+  display:block;
+}
+.collection-card h3{
+  font-size: 21px;
+  font-weight:700;
+  color: var(--cream);
+  margin-bottom: 10px;
+}
+.cc-link{
+  font-size: 13px;
+  color: var(--gold);
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  transition:.3s gap;
+}
+.collection-card:hover .cc-link{ gap:12px; }
+
+/* =========================================================
+   فوتر
+   ========================================================= */
+.site-footer{
+  border-top: 1px solid var(--border);
+  padding: 46px 0 34px;
+  position:relative; z-index:1;
+}
+.footer-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:16px;
+}
+.footer-inner p{
+  color: var(--muted);
+  font-size: 13.5px;
+}
+.footer-inner .brand-name{ font-size:17px; }
+
+/* =========================================================
+   صفحات گالری (دسته‌بندی‌ها)
+   ========================================================= */
+.gallery-hero{
+  padding: 54px 0 40px;
+  position:relative; z-index:1;
+  border-bottom: 1px solid var(--border);
+}
+.gallery-hero .back-link{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  color: var(--muted);
+  font-size:14px;
+  margin-bottom: 26px;
+  transition:.25s color;
+}
+.gallery-hero .back-link:hover, .gallery-hero .back-link:focus-visible{ color: var(--gold); }
+.gallery-hero .back-link .arrow{ transition:.25s transform; }
+.gallery-hero .back-link:hover .arrow{ transform: translateX(4px); }
+
+.gallery-hero h1{
+  font-size: clamp(34px,4.6vw,54px);
+  font-weight:800;
+  color: var(--cream);
+  margin-bottom: 14px;
+}
+.gallery-hero p{
+  color: var(--muted);
+  max-width: 620px;
+  font-size:15.5px;
+}
+
+.gallery-section{
+  padding: var(--section-pad) 0;
+  position:relative; z-index:1;
+}
+.gallery-grid{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+.gallery-item{
+  position:relative;
+  border-radius: 16px;
+  overflow:hidden;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  aspect-ratio: 1/1;
+}
+.gallery-item:nth-child(3n+2){ aspect-ratio: 4/5; }
+.gallery-item img{
+  width:100%; height:100%; object-fit:cover;
+  transition: .6s ease;
+}
+.gallery-item:hover img{ transform: scale(1.06); }
+.gallery-item .gi-fallback{
+  position:absolute; inset:0;
+  display:none; flex-direction:column; align-items:center; justify-content:center;
+  gap: 8px;
+  text-align:center;
+  padding: 18px;
+  background:
+    repeating-linear-gradient(135deg, rgba(201,165,104,0.05) 0 2px, transparent 2px 14px),
+    linear-gradient(200deg, var(--bg-elevated), var(--resin));
+}
+.gi-fallback span{
+  font-size:12.5px;
+  color: var(--muted);
+}
+.gi-fallback strong{
+  font-size:13.5px;
+  color: var(--gold-soft);
+  font-weight:600;
+}
+.gallery-item .gi-caption{
+  position:absolute; right:0; left:0; bottom:0;
+  padding: 16px;
+  background: linear-gradient(0deg, rgba(12,10,9,.85), transparent);
+  font-size: 12.5px;
+  color: var(--cream);
+  opacity:0;
+  transform: translateY(6px);
+  transition:.3s ease;
+}
+.gallery-item:hover .gi-caption{ opacity:1; transform:translateY(0); }
+
+.gallery-cta{
+  text-align:center;
+  margin-top: 60px;
+}
+
+/* =========================================================
+   واکنش‌گرایی (Responsive)
+   ========================================================= */
+@media (max-width: 980px){
+  .hero-grid{ grid-template-columns: 1fr; }
+  .hero-media{ order:-1; }
+  .specs-grid{ grid-template-columns: repeat(2,1fr); }
+  .collection-grid{ grid-template-columns: repeat(2,1fr); }
+  .gallery-grid{ grid-template-columns: repeat(2,1fr); }
+}
+
+@media (max-width: 680px){
+  .nav-links{
+    position:fixed;
+    inset: 68px 0 0 0;
+    background: rgba(20,16,13,0.98);
+    backdrop-filter: blur(10px);
+    flex-direction:column;
+    padding: 30px 26px;
+    gap: 22px;
+    transform: translateY(-14px);
+    opacity:0;
+    pointer-events:none;
+    transition: .3s ease;
+    border-top: 1px solid var(--border);
+  }
+  .nav-links.open{
+    transform: translateY(0);
+    opacity:1;
+    pointer-events:auto;
+  }
+  .nav-toggle{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width: 42px; height:42px;
+    border-radius:50%;
+    border: 1px solid var(--border);
+    background:transparent;
+    color: var(--gold);
+    font-size:18px;
+    cursor:pointer;
+  }
+  .specs-grid{ grid-template-columns: 1fr; }
+  .collection-grid{ grid-template-columns: 1fr; }
+  .gallery-grid{ grid-template-columns: 1fr; }
+  .gallery-item:nth-child(3n+2){ aspect-ratio: 1/1; }
+  .section-head{ flex-direction:column; align-items:flex-start; }
+}
+
+/* دسترس‌پذیری: فوکوس قابل مشاهده */
+a:focus-visible, button:focus-visible{
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+/* حرکت کمتر برای کاربرانی که ترجیح می‌دهند */
+@media (prefers-reduced-motion: reduce){
+  *{ transition-duration: .001ms !important; animation-duration:.001ms !important; scroll-behavior:auto !important; }
+}
